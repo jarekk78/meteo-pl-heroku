@@ -1,4 +1,118 @@
-body {
-	background-color:white;
-	font-family: arial;
+body { font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif; background-color: transparent; color: #333; -webkit-font-smoothing: antialiased; }
+
+div.steps {
+	clear: both;
+}
+div.step {
+	margin: 5px;
+	float: left;
+	display: block;
+	padding: 3px;
+	border: 1px solid silver;
+	background: #f0f0f0;
+	margin-bottom: 30px;
+}
+div.step p.step {
+	font-size: 1.4em;
+	margin: 0px;
+	margin-top: 3px;
+}
+div.step img {
+	clear: both;
+	border: 1px solid silver;
+}
+div.step p.descr {
+	margin: 0px;
+}
+div.single-line {
+	clear: both;
+	margin-top:20px;
+	margin-bottom: 20px;
+}
+
+
+div#footer div#footer_top_line {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+div#footer div.onecolumn {
+	width: 33%;
+	display: block;
+	float: left;
+	color: grey;
+	clear: all;
+}
+
+div#footer div.onecolumn A {
+	color: grey;
+	text-decoration: none;
+}
+
+div#main {
+	text-align: center;
+	margin: auto;
+	width: 960px;
+}
+div#footer {
+	margin: auto;
+	width: 960px;
+}
+div.title {
+	font-size: 2em;
+	margin-top: 150px;
+	margin-bottom: 20px;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+div.title a {
+	font-weight: normal;
+}
+
+div.form {
+	padding-top: 30px;
+	clear: left;
+	text-align: left;
+	width: 550px;
+	overflow: auto;
+	margin: auto;
+}
+div.form label {
+	clear: left;
+	float: left;
+	width: 70px;
+	margin-bottom: 5px;
+}
+div.form input {
+	float: left;
+}
+div.form select {
+	float: left;
+}
+div.form .first-line {
+	clear: both;
+	float: left;
+}
+input#url {
+	width: 95%;
+	margin-top: 10px;
+}
+div#right {
+	float: right;
+	margin: 0px;
+}
+p.step-switch {
+	margin: 0px;
+	margin-top: 5px;
+	text-align: center;
+}
+p.step-switch input {
+	margin: 0px;
+	float: none;
+}
+div#step-cont {
+	width: 310px;
+	height: 250px;
 }
