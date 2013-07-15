@@ -57,7 +57,14 @@ if(typeof(Storage)!=="undefined") {
 		localStorage.configured=1;
 	}
 	if (!localStorage.configured) {
-		document.write("<a href='configure.html'>Configure</a> your forecast first.");
+		document.write("<div class='title'><a href='/'>meteo-pl.herokuapp.com</a></div>" );
+		document.write("<div class='single-line'>Save your time. Get weather forecast in one step: http://meteo-pl.herokuapp.com, not three:</div>" );
+		document.write("<div id=steps>");
+		document.write("<div class='step'><p class='step'>Step 1.<p class='img'><img class='step' src='static/step1.png'><p class='descr'>Open the meteo.pl page and pick a model</div>");
+		document.write("<div class='step'><p class='step'>Step 2.<p class='img'><img class='step' src='static/step2.png'><p class='descr'>Select a city or geographical coordinates</div>");
+		document.write("<div class='step'><p class='step'>Step 3.<p class='img'><img class='step' src='static/step3.png'><p class='descr'>See your forecast</div>");
+		document.write("</div>");
+		document.write("<div class='single-line'><a id='pulsating' href='configure.html'>Configure</a> your forecast first.</div>");
 	} else {
 		var url="", legend="";
 		var row=localStorage.row;
@@ -69,9 +76,11 @@ if(typeof(Storage)!=="undefined") {
 			legend="http://www.meteo.pl/metco/leg4_pl.png";
 			url="http://www.meteo.pl/metco/mgram_pict.php?ntype=2n&fdate="+getRecentDate(false)+"&row="+row+"&col="+col+"&lang=pl";
 		}
+		document.write( "<div id='forecast'>" );
 		document.write( "<img src='"+legend+"'>" );
 		document.write( "<img src='"+url+"'>" );
-		document.write( "<p>To configure new forecast coordinates or change model click <a href='configure.html'>here</a>." );
+		document.write( "</div>" ); 
+		document.write( "<p class='to-conf'>To configure new forecast coordinates or change model click <a href='configure.html'>here</a>." );
 	}
 } else {
 	document.write("No storage support");
@@ -82,5 +91,24 @@ if(typeof(Storage)!=="undefined") {
 </div>
 
 <div id="footer">
-	Footer
+	<div id=footer_top_line>
+		&#169; 2013 kacerkaj<script>document.write("@"+"gmail.com");</script>
+	</div>
+
+<div class=onecolumn>
+	<a href="https://github.com/jarekk78/meteo-pl-heroku" target="_blank">Project at GitHub</a><br>
+	<a href="https://github.com/jarekk78/meteo-pl-widget" target="_blank">Mac OS X Dashboard widget</a>
 </div>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-23379049-13', 'herokuapp.com');
+  ga('send', 'pageview');
+
+</script>

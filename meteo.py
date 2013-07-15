@@ -28,3 +28,6 @@ def configure():
 with app.test_request_context():
 	url_for('static', filename='styles.css')
 	url_for('static', filename='sticky-footer.css')	
+	url_for('static', filename='step1.png')	
+	url_for('static', filename='step2.png')	
+	url_for('static', filename='step3.png')		

@@ -8,7 +8,7 @@
 
 <div id="wrap">
 	<div id="main">			
-
+		<div class='title'><a href='/'>meteo-pl.herokuapp.com</a></div>
 <script>
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
 function getParameterByName(str, name) {
@@ -19,11 +19,11 @@ function getParameterByName(str, name) {
 }
 
 if (localStorage.configured) {
-	document.write("<p>Previously set parameters:" );
-	document.write("<p>model = "+localStorage.model );
-	document.write("<p>row = "+localStorage.row );
-	document.write("<p>col = "+localStorage.col );
-	document.write("<p>Click <a href='/index.html'>here</a> to go back to forecast." );
+	document.write("<p>Previously set parameters: " );
+	document.write("model = "+localStorage.model );
+	document.write(", row = "+localStorage.row );
+	document.write(", col = "+localStorage.col );
+	document.write(". Click <a href='/index.html'>here</a> to go back to forecast." );
 }
 
 function parseUrl() {
@@ -33,7 +33,35 @@ function parseUrl() {
 	document.getElementById("model").selectedIndex = (str.indexOf("/um/") !== -1)?0:1;
 }
 
+var step=2;
+var interv;
+
+function setInterv() {
+	if (interv) window.clearInterval( interv );
+	interv = window.setInterval("setStep(step);",5000);
+}
+function setStep( id ) {
+	var s = "";
+	if (id==1) s = "<p class='step'>Step 1.<p class='img'><img class='step' src='static/step1.png'><p class='descr'>Open the <a href='http://www.meteo.pl' target='_blank'>meteo.pl</a> page and pick a model";
+	if (id==2) s = "<p class='step'>Step 2.<p class='img'><img class='step' src='static/step2.png'><p class='descr'>Select a city or geographical coordinates";
+	if (id==3) s = "<p class='step'>Step 3.<p class='img'><img class='step' src='static/step3.png'><p class='descr'>Copy the row and col values from the forecast url";
+	document.getElementById("step-cont").innerHTML = s;
+	document.getElementById("ss"+id).checked=true;
+	step=id+1;
+	if (step>3) step=1;
+}
+
 </script>
+
+<div class="form">
+<div class='step' id="right">
+<div id="step-cont">
+</div>
+<p class="step-switch">
+	<input id="ss1" type="radio" name="group1" value="1" onClick="setStep(1);">
+	<input id="ss2" type="radio" name="group1" value="2" onClick="setStep(2);"> 
+	<input id="ss3" type="radio" name="group1" value="3" onClick="setStep(3);"> 
+</div>
 
 <form action="index.html" method="get">
 	<label>Model</label>
@@ -48,16 +76,42 @@ function parseUrl() {
 	<label>Col</label>
 	<input id="col" placeholder="Col" name="col" type="number">
 	
+	<label>&nbsp;</label>
 	<input type=submit value="Save">
+</form>
+</div>
 
-	Or paste forecast url and click "parse":
+<div class="form">
+	<p class="first-line">Or paste forecast url, click "Parse" and then "Save" above:
 	<input id="url" type="url" placeholder="Forecast url, eg. http://www.meteo.pl/um/php/meteorogram_list.php?ntype=0u&fdate=2013071500&row=418&col=223&lang=pl&cname=%A3%F3d%BC">
 	<input type=button value="Parse" onclick="parseUrl();">
-</form>
-
-	</div>
 </div>
+</div>
+
+<script>
+setStep(1);
+setInterv();
+</script>
 
 <div id="footer">
-	Footer
+	<div id=footer_top_line>
+		&#169; 2013 kacerkaj<script>document.write("@"+"gmail.com");</script>
+	</div>
+
+<div class=onecolumn>
+	<a href="https://github.com/jarekk78/meteo-pl-heroku" target="_blank">Project at GitHub</a><br>
+	<a href="https://github.com/jarekk78/meteo-pl-widget" target="_blank">Mac OS X Dashboard widget</a>
 </div>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-23379049-13', 'herokuapp.com');
+  ga('send', 'pageview');
+
+</script>

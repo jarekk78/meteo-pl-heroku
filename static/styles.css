@@ -116,3 +116,12 @@ div#step-cont {
 	width: 310px;
 	height: 250px;
 }
+div#forecast {
+	margin-top: 10px;
+}
+div#forecast img {
+
+}
+p.to-conf {
+	margin-top: 20px;
+}
