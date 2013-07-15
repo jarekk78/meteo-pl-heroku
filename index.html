@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>http://meteo-pl.herokuapp.com</title>
+	<link rel="stylesheet" type="text/css" href="/static/styles.css" />
+	<link rel="stylesheet" type="text/css" href="/static/sticky-footer.css" />
+</head>
+
+
+
+<div id="wrap">
+	<div id="main">			
+			
+<script>
+// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function getRecentDate( model ) {
+	var date;
+    var cd = new Date();
+    var delay=0;
+    cd.setHours( cd.getHours() - delay );
+    
+    var tzOffset = cd.getTimezoneOffset()/60+2;
+    var hour = cd.getHours()+tzOffset;
+    
+    if (hour < 6) {
+        hour=18;
+        cd.setDate( cd.getDate()-1 );
+    }
+    else if (hour < 12) hour=0;
+    else if (hour < 18) hour=6;
+    else hour=12;
+
+    if (!model) {
+        if (hour<12) hour=0;
+        else hour=12;
+    }
+    var day = cd.getDate();
+    var month = cd.getMonth() + 1;
+    var year = cd.getFullYear();
+    date = year+(month<10?"0"+month:month)+(day<10?"0"+day:day);
+    date += (hour<10?"0"+hour:hour);
+	return date;
+}
+
+if(typeof(Storage)!=="undefined") {
+	if (getParameterByName("model")) {
+		localStorage.model=getParameterByName("model");
+		localStorage.row=Number(getParameterByName("row"));
+		localStorage.col=Number(getParameterByName("col"));
+		localStorage.configured=1;
+	}
+	if (!localStorage.configured) {
+		document.write("<a href='configure.html'>Configure</a> your forecast first.");
+	} else {
+		var url="", legend="";
+		var row=localStorage.row;
+		var col=localStorage.col;
+		if (localStorage.model=="um") {
+			legend="http://www.meteo.pl/um/metco/leg_um_pl_20120615.png";
+			url="http://www.meteo.pl/um/metco/mgram_pict.php?ntype=0u&fdate="+getRecentDate(true)+"&row="+row+"&col="+col+"&lang=pl";
+		} else {
+			legend="http://www.meteo.pl/metco/leg4_pl.png";
+			url="http://www.meteo.pl/metco/mgram_pict.php?ntype=2n&fdate="+getRecentDate(false)+"&row="+row+"&col="+col+"&lang=pl";
+		}
+		document.write( "<img src='"+legend+"'>" );
+		document.write( "<img src='"+url+"'>" );
+		document.write( "<p>To configure new forecast coordinates or change model click <a href='configure.html'>here</a>." );
+	}
+} else {
+	document.write("No storage support");
+}
+</script>
+
+	</div>
+</div>
+
+<div id="footer">
+	Footer
+</div>
