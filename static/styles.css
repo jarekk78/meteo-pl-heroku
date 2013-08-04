@@ -72,7 +72,7 @@ div.title a {
 }
 
 div.form {
-	padding-top: 30px;
+	padding-top: 10px;
 	clear: left;
 	text-align: left;
 	width: 550px;
@@ -124,4 +124,20 @@ div#forecast img {
 }
 p.to-conf {
 	margin-top: 20px;
+}
+input#store_name {
+	width: 55%;
+	margin-top: 10px;
+}
+input.same_line {
+	clear: none;
+	float: left;
+}
+select#stored_list {
+	margin: 0px;
+	margin-top: 10px;
+}
+input.first {
+	clear: none;
+	float: left;
 }

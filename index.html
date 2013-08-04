@@ -27,7 +27,7 @@ function getParameterByName(name) {
 function getRecentDate( model ) {
 	var date;
     var cd = new Date();
-    var delay=0;
+    var delay=12;
     cd.setHours( cd.getHours() - delay );
     
     var tzOffset = cd.getTimezoneOffset()/60+2;
@@ -51,6 +51,14 @@ function getRecentDate( model ) {
     date = year+(month<10?"0"+month:month)+(day<10?"0"+day:day);
     date += (hour<10?"0"+hour:hour);
 	return date;
+}
+
+function getStored() { return localStorage.stored?JSON.parse(localStorage.stored):new Array(); }
+function selectStored() {
+	var stored = getStored();
+	var selected = document.getElementById("stored").selectedIndex;
+	var url = "?model="+stored[selected][1]+"&row="+stored[selected][2]+"&col="+stored[selected][3];
+	window.location = url;
 }
 
 if(typeof(Storage)!=="undefined") {
@@ -85,6 +93,17 @@ if(typeof(Storage)!=="undefined") {
 		document.write( "<img src='"+url+"'>" );
 		document.write( "</div>" ); 
 		document.write( "<p class='to-conf'>To configure new forecast coordinates or change model click <a href='configure.html'>here</a>." );
+		var stored = getStored();
+		if (stored.length>0) {
+			document.write( "<br>Stored locations: " );
+			document.write( "<select id='stored' onChange='selectStored()'>" );
+			var i; for (i=0;i<stored.length;i++) {
+				selected = "";
+				if (stored[i][1]==localStorage.model && stored[i][2]==localStorage.row && stored[i][3]==localStorage.col) selected = "selected";
+				document.write( "<option value="+i+" "+selected+">"+stored[i][0]+" ("+stored[i][1]+","+stored[i][2]+","+stored[i][3]+")</option>" );
+			}
+			document.write( "</select>" );
+		}
 	}
 } else {
 	document.write("No storage support");

@@ -51,6 +51,60 @@ function setStep( id ) {
 	if (step>3) step=1;
 }
 
+// stored settings
+
+function getStored() { return localStorage.stored?JSON.parse(localStorage.stored):new Array(); }
+function setStored( stored ) { localStorage.stored = JSON.stringify(stored); }
+
+function storeCurrent() {
+	var str = document.getElementById("store_name").value;
+	var stored = getStored();
+	var i,j=-1; for (i=0;i<stored.length;i++) if (stored[i][0]==str) { j=i; }
+	if (j==-1) {
+		stored.push( new Array() );
+		j=stored.length-1;
+	}
+	if (document.getElementById("row").value != '' && document.getElementById("col").value != '') 
+		stored[j]=[str, (document.getElementById("model").selectedIndex==0)?'um':'coamps', document.getElementById("row").value, document.getElementById("col").value];
+	else
+		stored[j]=[str, localStorage.model, localStorage.row, localStorage.col];
+	setStored(stored);
+	fillStoredLocations();
+}
+
+function removeThis() {
+	var selected = document.getElementById("stored_list").selectedIndex;
+	if (selected<0) return;
+	var stored = getStored();
+	stored.splice(selected,1);
+	setStored(stored);
+	fillStoredLocations();
+}
+
+function removeAll() {
+	setStored(new Array());
+	fillStoredLocations();
+}
+
+function selectThis() {
+	var selected = document.getElementById("stored_list").selectedIndex;
+	if (selected<0) return;
+	var stored = getStored();
+	selected = stored[selected];
+	document.getElementById("row").value = selected[2];
+	document.getElementById("col").value = selected[3];
+	document.getElementById("model").selectedIndex = (selected[1] == 'um')?0:1;
+	document.getElementById('mainform').submit();
+}
+
+function fillStoredLocations() {
+	var str = "<select id='stored_list'>";
+	var stored = getStored();
+	var i; for (i=0;i<stored.length;i++) str += "<option value="+i+">"+stored[i][0]+" ("+stored[i][1]+","+stored[i][2]+","+stored[i][3]+")</option>";
+	str += '</select>';
+	document.getElementById("options").innerHTML=str;
+}
+
 </script>
 
 <div class="form">
@@ -63,7 +117,7 @@ function setStep( id ) {
 	<input id="ss3" type="radio" name="group1" value="3" onClick="setStep(3);"> 
 </div>
 
-<form action="index.html" method="get">
+<form id="mainform" action="index.html" method="get">
 	<label>Model</label>
 	<select id="model" name="model">
 		<option value="um">UM
@@ -86,11 +140,25 @@ function setStep( id ) {
 	<input id="url" type="url" placeholder="Forecast url, eg. http://www.meteo.pl/um/php/meteorogram_list.php?ntype=0u&fdate=2013071500&row=418&col=223&lang=pl&cname=%A3%F3d%BC">
 	<input type=button value="Parse" onclick="parseUrl();">
 </div>
+
+<div class="form">
+	<p class="first-line">Store current settings:
+	<input id="store_name" type="text" class="first" placeholder="Location name, eg. Lodz">
+	<input type=button class="same_line" value="Store" onclick="storeCurrent();">
+	
+	<div id="options" class="first-line">
+	</div>
+	<input type=button class="same_line" value="Select" onclick="selectThis();">
+	<input type=button class="same_line" value="Remove" onclick="removeThis();">
+	<input type=button class="same_line" value="Remove all" onclick="removeAll();">
+</div>
+
 </div>
 
 <script>
 setStep(1);
 setInterv();
+fillStoredLocations();
 </script>
 
 <div id="footer">
