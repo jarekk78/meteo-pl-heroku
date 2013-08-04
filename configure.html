@@ -103,6 +103,9 @@ function fillStoredLocations() {
 	var i; for (i=0;i<stored.length;i++) str += "<option value="+i+">"+stored[i][0]+" ("+stored[i][1]+","+stored[i][2]+","+stored[i][3]+")</option>";
 	str += '</select>';
 	document.getElementById("options").innerHTML=str;
+	document.getElementById("select-btn").disabled = stored.length==0;
+	document.getElementById("remove-btn").disabled = stored.length==0;
+	document.getElementById("remove-all-btn").disabled = stored.length==0;
 }
 
 </script>
@@ -148,9 +151,9 @@ function fillStoredLocations() {
 	
 	<div id="options" class="first-line">
 	</div>
-	<input type=button class="same_line" value="Select" onclick="selectThis();">
-	<input type=button class="same_line" value="Remove" onclick="removeThis();">
-	<input type=button class="same_line" value="Remove all" onclick="removeAll();">
+	<input type=button class="same_line" id="select-btn" value="Select" onclick="selectThis();">
+	<input type=button class="same_line" id="remove-btn" value="Remove" onclick="removeThis();">
+	<input type=button class="same_line" id="remove-all-btn" value="Remove all" onclick="removeAll();">
 </div>
 
 </div>
