@@ -82,8 +82,10 @@ function removeThis() {
 }
 
 function removeAll() {
-	setStored(new Array());
-	fillStoredLocations();
+	if (confirm("Remove all stored locations?")==true) {
+		setStored(new Array());
+		fillStoredLocations();
+	}
 }
 
 function selectThis() {
@@ -139,17 +141,17 @@ function fillStoredLocations() {
 </div>
 
 <div class="form">
-	<p class="first-line">Or paste forecast url, click "Parse" and then "Save" above:
+	<p class="first-line">Or paste forecast url, click "Parse" and then "Save" above:</p>
 	<input id="url" type="url" placeholder="Forecast url, eg. http://www.meteo.pl/um/php/meteorogram_list.php?ntype=0u&fdate=2013071500&row=418&col=223&lang=pl&cname=%A3%F3d%BC">
 	<input type=button value="Parse" onclick="parseUrl();">
 </div>
 
 <div class="form">
-	<p class="first-line">Store current settings:
+	<p class="first-line">Store current settings ("previously set" or entered above):</p>
 	<input id="store_name" type="text" class="first" placeholder="Location name, eg. Lodz">
 	<input type=button class="same_line" value="Store" onclick="storeCurrent();">
 	
-	<div id="options" class="first-line">
+	<div id="options" class="first">
 	</div>
 	<input type=button class="same_line" id="select-btn" value="Select" onclick="selectThis();">
 	<input type=button class="same_line" id="remove-btn" value="Remove" onclick="removeThis();">

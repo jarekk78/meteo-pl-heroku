@@ -87,17 +87,18 @@ div.form label {
 }
 div.form input {
 	float: left;
+	margin-top: 0px;
 }
 div.form select {
 	float: left;
 }
-div.form .first-line {
+div.form p.first-line {
 	clear: both;
 	float: left;
+	width:95%;
 }
 input#url {
-	width: 95%;
-	margin-top: 10px;
+	width: 90%;
 }
 div#right {
 	float: right;
@@ -125,19 +126,14 @@ div#forecast img {
 p.to-conf {
 	margin-top: 20px;
 }
-input#store_name {
-	width: 55%;
-	margin-top: 10px;
-}
 input.same_line {
 	clear: none;
 	float: left;
 }
-select#stored_list {
-	margin: 0px;
-	margin-top: 10px;
-}
-input.first {
-	clear: none;
+div.form div.first {
+	clear: both;
 	float: left;
+}
+div.form input#store_name {
+	width: 50%;
 }
